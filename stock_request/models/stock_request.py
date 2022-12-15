@@ -216,13 +216,17 @@ class StockRequest(models.Model):
 
     @api.constrains("order_id", "expected_date")
     def check_order_expected_date(self):
-        if self.order_id and self.order_id.expected_date != self.expected_date:
-            raise ValidationError(_("Expected date must be equal to the order"))
+        for rec in self:
+            if rec.order_id and rec.order_id.expected_date != rec.expected_date:
+                raise ValidationError(_("Expected date must be equal to the order"))
 
     @api.constrains("order_id", "picking_policy")
     def check_order_picking_policy(self):
-        if self.order_id and self.order_id.picking_policy != self.picking_policy:
-            raise ValidationError(_("The picking policy must be equal to the order"))
+        for rec in self:
+            if rec.order_id and rec.order_id.picking_policy != rec.picking_policy:
+                raise ValidationError(
+                    _("The picking policy must be equal to the order")
+                )
 
     def _action_confirm(self):
         self._action_launch_procurement_rule()
@@ -354,17 +358,20 @@ class StockRequest(models.Model):
             action["res_id"] = pickings.id
         return action
 
-    @api.model
-    def create(self, vals):
-        upd_vals = vals.copy()
-        if upd_vals.get("name", "/") == "/":
-            upd_vals["name"] = self.env["ir.sequence"].next_by_code("stock.request")
-        if "order_id" in upd_vals:
-            order_id = self.env["stock.request.order"].browse(upd_vals["order_id"])
-            upd_vals["expected_date"] = order_id.expected_date
-        else:
-            upd_vals["expected_date"] = self._get_expected_date()
-        return super().create(upd_vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        upd_vals_list = []
+        for vals in vals_list:
+            upd_vals = vals.copy()
+            if upd_vals.get("name", "/") == "/":
+                upd_vals["name"] = self.env["ir.sequence"].next_by_code("stock.request")
+            if "order_id" in upd_vals:
+                order_id = self.env["stock.request.order"].browse(upd_vals["order_id"])
+                upd_vals["expected_date"] = order_id.expected_date
+            else:
+                upd_vals["expected_date"] = self._get_expected_date()
+            upd_vals_list.append(upd_vals)
+        return super().create(upd_vals_list)
 
     def unlink(self):
         if self.filtered(lambda r: r.state != "draft"):

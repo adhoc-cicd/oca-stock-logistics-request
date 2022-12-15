@@ -103,6 +103,7 @@
         <field name="model">stock.request</field>
         <field name="arch" type="xml">
             <form string="Stock Requests">
+                <field name="company_id" invisible="1" />
                 <header>
                     <button
                         name="action_confirm"
