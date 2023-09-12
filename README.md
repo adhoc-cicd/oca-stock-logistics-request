@@ -1,4 +1,3 @@
-
 [![Runboat](https://img.shields.io/badge/runboat-Try%20me-875A7B.png)](https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-request&target_branch=16.0)
 [![Pre-commit Status](https://github.com/OCA/stock-logistics-request/actions/workflows/pre-commit.yml/badge.svg?branch=16.0)](https://github.com/OCA/stock-logistics-request/actions/workflows/pre-commit.yml?query=branch%3A16.0)
 [![Build Status](https://github.com/OCA/stock-logistics-request/actions/workflows/test.yml/badge.svg?branch=16.0)](https://github.com/OCA/stock-logistics-request/actions/workflows/test.yml?query=branch%3A16.0)
@@ -9,7 +8,9 @@
 
 # Stock Logistics Request
 
-This repository contains modules to provide another way of creating stock movements. Provided as a dedicated application, users will be able to create their stock needs by product and location.
+This repository contains modules to provide another way of creating stock movements.
+Provided as a dedicated application, users will be able to create their stock needs by
+product and location.
 
 <!-- /!\ do not modify below this line -->
 
@@ -27,11 +28,12 @@ This part will be replaced when running the oca-gen-addons-table script from OCA
 
 This repository is licensed under [AGPL-3.0](LICENSE).
 
-However, each module can have a totally different license, as long as they adhere to Odoo Community Association (OCA)
-policy. Consult each module's `__manifest__.py` file, which contains a `license` key
-that explains its license.
+However, each module can have a totally different license, as long as they adhere to
+Odoo Community Association (OCA) policy. Consult each module's `__manifest__.py` file,
+which contains a `license` key that explains its license.
 
-----
+---
+
 OCA, or the [Odoo Community Association](http://odoo-community.org/), is a nonprofit
 organization whose mission is to support the collaborative development of Odoo features
 and promote its widespread use.
