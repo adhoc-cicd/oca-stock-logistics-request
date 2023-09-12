@@ -94,14 +94,14 @@ class StockRequest(models.AbstractModel):
         "res.company", "Company", required=True, default=lambda self: self.env.company
     )
     route_id = fields.Many2one(
-        "stock.location.route",
+        "stock.route",
         string="Route",
         domain="[('id', 'in', route_ids)]",
         ondelete="restrict",
     )
 
     route_ids = fields.Many2many(
-        "stock.location.route",
+        "stock.route",
         string="Routes",
         compute="_compute_route_ids",
         readonly=True,
